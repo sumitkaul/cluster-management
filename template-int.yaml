@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: > 
+  SAM template for Harness cluster Management  
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+     HarnessOnBoardClusterFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: src/harness-onboard-cloudprovider/
+        Handler: app.lambda_handler
+        Runtime: python3.8
+        Layers:
+          - arn:aws:lambda:us-east-1:661494587018:layer:request:1
+        Policies:
+          AWSLambdaSQSQueueExecutionRole
+        VpcConfig:
+          SecurityGroupIds:
+          - sg-0000e82715b214ffb
+          - sg-0a47f20f382fd3bc4
+          SubnetIds:
+          - subnet-0ce2a7cbb3ca36110
+          - subnet-078fc0fa84235f55d
+          - subnet-0c0d4632a5e513990
+        Events:
+          SQSEvent:
+            Type: SQS
+            Properties:
+              Queue: arn:aws:sqs:us-east-1:661494587018:createClusterQueue
+              BatchSize: 5
+              Enabled: true
+
+     
+
+
+
+
+
+
+
+
+
+
+    
+
+

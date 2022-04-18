@@ -1,0 +1,9 @@
+.DS_Store
+.aws-sam/*
+aws-dev.sh
+aws-stage.sh
+aws-int.sh
+aws-prod.sh
+.aws/*
+samconfig.toml
+.vscode/*

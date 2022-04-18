@@ -1,0 +1,131 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: > 
+  SAM template for Harness Cloud Provider Onboarding 
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+     HarnessOnBoardClusterFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: src/harness-onboard-cloudprovider/
+        Handler: app.lambda_handler
+        Runtime: python3.8
+        Policies:
+          AWSLambdaSQSQueueExecutionRole
+        VpcConfig:
+          SecurityGroupIds:
+          - sg-0c75c8f26b7bd3be6
+          - sg-005e50b15f69ad311
+          SubnetIds:
+          - subnet-03dcdff88b6b14b7f
+          - subnet-0cc0550fefe199db7
+          - subnet-0f2c38237f65b6368
+        Events:
+          SQSEvent:
+            Type: SQS
+            Properties:
+              Queue: arn:aws:sqs:us-east-1:986855953658:eventbus_deploy_harness_queue
+              BatchSize: 5
+              Enabled: true
+      
+      HarnessDeleteClusterFunction:
+       Type: AWS::Serverless::Function
+       Properties:
+        CodeUri: src/harness-delete-cluster/
+        Handler: app.lambda_handler
+        Runtime: python3.8
+        Policies:
+          AWSLambdaSQSQueueExecutionRole
+        VpcConfig:
+          SecurityGroupIds:
+          - sg-0c75c8f26b7bd3be6
+          - sg-005e50b15f69ad311
+          SubnetIds:
+          - subnet-03dcdff88b6b14b7f
+          - subnet-0cc0550fefe199db7
+          - subnet-0f2c38237f65b6368
+        Events:
+          SQSEvent:
+            Type: SQS
+            Properties:
+              Queue: arn:aws:sqs:us-east-1:986855953658:eventbus_deploy_harness_queue
+              BatchSize: 5
+              Enabled: true
+      
+      
+      HarnessOnBoardApplicationClusterFunction:
+       Type: AWS::Serverless::Function
+       Properties:
+        CodeUri: src/harness-add-application/
+        Handler: app.lambda_handler
+        Runtime: python3.8
+        Policies:
+          AWSLambdaSQSQueueExecutionRole
+        VpcConfig:
+          SecurityGroupIds:
+          - sg-0c75c8f26b7bd3be6
+          - sg-005e50b15f69ad311
+          SubnetIds:
+          - subnet-03dcdff88b6b14b7f
+          - subnet-0cc0550fefe199db7
+          - subnet-0f2c38237f65b6368
+        Events:
+          SQSEvent:
+            Type: SQS
+            Properties:
+              Queue: arn:aws:sqs:us-east-1:986855953658:eventbus_deploy_harness_queue
+              BatchSize: 5
+              Enabled: true
+
+
+    # TO-DO : This is another example of lambda function which can be used for another queue which is listening to different event types like delete_cluster/similar model cabe applied to various events 
+    #  Another lambda function can be proviosioned 
+    
+    # HarnessOffBoardClusterFunction:
+    #   Type: AWS::Serverless::Function
+    #   Properties:
+    #     CodeUri: harness-offboard-cluster/  
+    #     Handler: app.lambda_handler
+    #     Runtime: python3.8
+    #     Policies:
+    #       # Give Lambda function to poll messages from SQS
+    #       AWSLambdaSQSQueueExecutionRole
+    #     VpcConfig:
+    #       SecurityGroupIds:
+    #       - sg-0c75c8f26b7bd3be6
+    #       - sg-005e50b15f69ad311
+    #       SubnetIds:
+    #       - subnet-03dcdff88b6b14b7f
+    #       - subnet-0cc0550fefe199db7
+    #       - subnet-0f2c38237f65b6368
+    #     Events:
+    #       SQSEvent:
+    #         Type: SQS
+    #         Properties:
+    #           Queue: arn:aws:sqs:us-east-1:986855953658:{offboardqueue}
+    #           BatchSize: 5
+    #           Enabled: true
+
+
+    # This lambda function config is for ap-ep (AWS account)
+    # HarnessOnBoardClusterFunction:
+    #   Type: AWS::Serverless::Function
+    #   Properties:
+    #     CodeUri: harness-onboard-cluster/
+    #     Handler: app.lambda_handler
+    #     Runtime: python3.8
+    #     VpcConfig:
+    #       SecurityGroupIds:
+    #       - sg-03550a4081424e68d
+    #       SubnetIds:
+    #       - subnet-01eef750a93376f76
+    #       - subnet-00124bc4f312aadbf
+    #       - subnet-0505010f1d1d0fa1f
+
+    
+
+

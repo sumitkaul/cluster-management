@@ -1,0 +1,80 @@
+{
+    "clusterName" : "ap-ast-dev-cluster",
+    "masterUrl" : "https://DFAA10FF72B8F8FAC443E6507D29B630.gr7.us-east-1.eks.amazonaws.com",
+    "serviceAccountToken" : "ap-ast-dev-cluster-token",
+    "token" : "*****"
+}
+
+
+{
+    "eventSource": "infra.platform",
+    "eventType": "cluster_created",
+    "id": "8g332322-a459-11eb-9e4d-abcd34568767",
+    "correlationId": "harness-infrastructure",
+    "state": "completed",
+    "payloadSchema": [
+        {
+            "harnessInclusterDelegate" : "false",
+            "clusterName" : "ap-cust-amazon-dev",
+            "masterUrl" : "https://DFAA10FF72B8F8FAC443E6507D29B630.gr7.us-east-1.eks.amazonaws.com",
+            "serviceAccountToken" : "ap-cust-amazon-dev-token"
+        }
+    ]
+}
+
+
+
+
+{
+    "eventSource": "infra.platform",
+    "eventType": "cluster_created",
+    "id": "8fa03528-a459-11eb-9e4d-acde48001122",
+    "correlationId": "harness-infrastructure",
+    "state": "completed",
+    "payloadSchema": [
+        {
+            "harnessInclusterDelegate" : "true",
+            "harnessDelegateName" : "ap-cust-amazon-prod-delegate",
+            "clusterName" : "ap-cust-amazon-prod",
+            "environment" :  "Production",
+        }
+    ]
+}
+
+
+
+recordBody = [
+    {
+	'Type': 'Notification',
+	'MessageId': 'a2289009-fc3e-59a6-b9fe-c93ecf3aa3ab',
+	'TopicArn': 'arn:aws:sns:us-east-1:986855953658:eventbus',
+	'Message': '{"id":"8fa03528-a459-11eb-9e4d-acde48001122","eventSource":"deploy.harness","eventType":"cluster_creation_completed","payloadSchema":"https://schema.proto#v1","payload":[{"clusterName":"ap-ast-dev-cluster-sqs","masterUrl":"https://DFAA10FF72B8F8FAC443E6507D29B630.gr7.us-east-1.eks.amazonaws.com","serviceAccountToken":"ap-ast-dev-cluster-token","token":"eyJhbGciOiJSUzI1NiIsImtpZCI6Ii1UTTVsVjg2Y3lUdEdHaDZidGFCaS1xWnRQNDQxRXBmczkzWlQ3bHdoLTQifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJoYXJuZXNzLWRlbGVnYXRlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6Imhhcm5lc3MtZGVsZWdhdGUtdG9rZW4tczV4OTkiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiaGFybmVzcy1kZWxlZ2F0ZSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjYxNjlmNDRiLWJmYjgtNGJkZi1iOWQ5LTFiMjU1YjQxYmVkZSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpoYXJuZXNzLWRlbGVnYXRlOmhhcm5lc3MtZGVsZWdhdGUifQ.rQrP8rMln6LWDdgJw120Z1kbaeMEWtq0XoXawKtUDea_LC3UoFdjiZ_JRrXFh6AGqFecE0kQDwjSIamp9WOxECEqZ3PIj7-NKpLuEJOUDsTYyxaw0YMUj4fcQuelCIvGc6SaLNqUS3h3oBIMddEVI-Q1p36ocwyEFhsVgukWdb3NHQWxkhu9p4ddI0fw6PrasI-6kx4DUKeuA7D33NBQ9mA0beZ568fNO3o-a-LLY6ba1avwkV7IcyrDN50s8RAugCznCZ7gw8mzQOb2QMG2rHk_l1eYWQUr1NcgzqTsLLm3SIIacejD8P0dUcDdSxqs_v58MbvmLf_jnViS8CtUJw"}],"Timestamp":1623011523}',
+	'Timestamp': '2021-06-06T20:32:04.756Z',
+	'SignatureVersion': '1',
+	'Signature': 'rC5KfSzkHItJP4wPHjgEgTmOY3tTQLQq/moGIAVb0cex4Lkk2OGWpnD/kb8QeJqpB3lamtSPyjDdnolNwC63SUg5gtE/J/16BEzOolK4nPBvnE6Nn1G5NdFrl/nystPwM1joj2zpq42dMz766Uxg3Q9fP3ktuC1F6U8cFVFyhVV0WyTxp9JOygLTsFvDmSrrFTHF2a6sNoqsXT2PvGns70gHk1GiFEIkxghzCM4OKetTHsA2xVJs7epGBx6Ta7U2PHC4lP+SLtSjK4vLvJQY1DkkBuLhdA3I68FLWJzzvzNfrk40DVWBfWGrjY6aLOvvm19RVNTKmABTpOLf8p0Cyg==',
+	'SigningCertURL': 'https://sns.us-east-1.amazonaws.com/SimpleNotificationService-010a507c1833636cd94bdb98bd93083a.pem',
+	'UnsubscribeURL': 'https://sns.us-east-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:986855953658:eventbus:350bc67d-9ef9-452a-9556-a44a84055621',
+	'MessageAttributes': {
+		'EventSource': {
+			'Type': 'String',
+			'Value': 'deploy.harness'
+		}
+	}
+}
+]
+
+
+message = """
+{
+	"id": "8fa03528-a459-11eb-9e4d-acde48001122",
+	"eventSource": "deploy.harness",
+	"eventType": "cluster_creation_completed",
+	"payloadSchema": "https://schema.proto#v1",
+	"payload": [{
+		"clusterName": "ap-ast-dev-cluster-sqs-2ertert2",
+		"masterUrl": "https://DFAA10FF72B8F8FAC443E6507D29B630.gr7.us-east-1.eks.amazonaws.com",
+		"serviceAccountToken": "ap-ast-dev-cluster-tokenerteter",
+		"token": "***"
+	}],
+	"Timestamp": 1622930929
+} """

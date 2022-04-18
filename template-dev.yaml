@@ -1,0 +1,115 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: > 
+  SAM template for Harness cluster Management 
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+    HarnessOnBoardClusterFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: src/harness-onboard-cloudprovider/
+        Handler: app.lambda_handler
+        Runtime: python3.8
+        Layers:
+          - arn:aws:lambda:us-east-1:293275982215:layer:RequestLib:1
+        Policies:
+          AWSLambdaSQSQueueExecutionRole
+        VpcConfig:
+          SecurityGroupIds:
+          - sg-03550a4081424e68d
+          SubnetIds:
+          - subnet-01eef750a93376f76
+          - subnet-00124bc4f312aadbf
+          - subnet-0505010f1d1d0fa1f
+        Events:
+          SQSEvent:
+            Type: SQS
+            Properties:
+              Queue: arn:aws:sqs:us-east-1:293275982215:createClusterQueue
+              BatchSize: 5
+              Enabled: true
+      
+    HarnessOffBoardClusterFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+          CodeUri: src/harness-delete-cluster/
+          Handler: app.lambda_handler
+          Runtime: python3.8
+          Layers:
+          - arn:aws:lambda:us-east-1:293275982215:layer:RequestLib:1
+          Policies:
+            AWSLambdaSQSQueueExecutionRole
+          VpcConfig:
+            SecurityGroupIds:
+              - sg-03550a4081424e68d
+            SubnetIds:
+              - subnet-01eef750a93376f76
+              - subnet-00124bc4f312aadbf
+              - subnet-0505010f1d1d0fa1f
+          Events:
+            SQSEvent:
+              Type: SQS
+              Properties:
+                Queue: arn:aws:sqs:us-east-1:293275982215:deleteClusterQueue
+                BatchSize: 5
+                Enabled: true
+      
+    HarnessUpdateClusterFunction:
+       Type: AWS::Serverless::Function
+       Properties:
+          CodeUri: src/harness-update-cluster/
+          Handler: app.lambda_handler
+          Runtime: python3.8
+          Layers:
+          - arn:aws:lambda:us-east-1:293275982215:layer:RequestLib:1
+          Policies:
+            AWSLambdaSQSQueueExecutionRole
+          VpcConfig:
+            SecurityGroupIds:
+              - sg-03550a4081424e68d
+            SubnetIds:
+              - subnet-01eef750a93376f76
+              - subnet-00124bc4f312aadbf
+              - subnet-0505010f1d1d0fa1f
+          Events:
+            SQSEvent:
+              Type: SQS
+              Properties:
+                Queue: arn:aws:sqs:us-east-1:293275982215:updateClusterQueue
+                BatchSize: 5
+                Enabled: true
+    
+    HarnessApplicationFunction:
+       Type: AWS::Serverless::Function
+       Properties:
+          CodeUri: src/harness-add-application/
+          Handler: app.lambda_handler
+          Runtime: python3.8
+          Layers:
+          - arn:aws:lambda:us-east-1:293275982215:layer:RequestLib:1
+          Policies:
+            AWSLambdaSQSQueueExecutionRole
+          VpcConfig:
+            SecurityGroupIds:
+              - sg-03550a4081424e68d
+            SubnetIds:
+              - subnet-01eef750a93376f76
+              - subnet-00124bc4f312aadbf
+              - subnet-0505010f1d1d0fa1f
+          Events:
+            SQSEvent:
+              Type: SQS
+              Properties:
+                Queue: arn:aws:sqs:us-east-1:293275982215:addApplicationQueue
+                BatchSize: 5
+                Enabled: true
+
+   
+
+    
+
+
